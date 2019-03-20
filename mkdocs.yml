@@ -1,0 +1,10 @@
+site_name: pytest-aioworkers
+site_description: A plugin to test aioworkers projects with pytest
+site_author: Alexander Malev
+
+theme: readthedocs
+
+repo_url: https://github.com/aioworkers/pytest-aioworkers
+
+pages:
+- Home: index.md
