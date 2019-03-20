@@ -20,7 +20,11 @@ setup(
     long_description=read('README.rst'),
     py_modules=['pytest_aioworkers'],
     python_requires='>=3.5',
-    install_requires=['pytest>=3.5.0', 'aioworkers'],
+    install_requires=[
+        'pytest>=3.5.0',
+        'pytest-aiohttp',
+        'aioworkers',
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Pytest',
