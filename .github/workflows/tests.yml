@@ -31,7 +31,7 @@ jobs:
         mypy pytest_aioworkers.py tests
     - name: Test with pytest
       run: |
-        pytest --cov=pytest_aioworkers
+        pytest --isort --cov=pytest_aioworkers
 
   tests-on-pypy:
 
@@ -101,8 +101,6 @@ jobs:
           pip install -U pipenv codecov
           pip install -e .
           pipenv install --skip-lock --system
-        continue-on-error: true
       - name: Test with pytest
         run: |
           pytest
-        continue-on-error: true
