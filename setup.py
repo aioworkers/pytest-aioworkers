@@ -19,7 +19,7 @@ setup(
     description='A plugin to test aioworkers project with pytest',
     long_description=read('README.rst'),
     py_modules=['pytest_aioworkers'],
-    python_requires='>=3.5',
+    python_requires='>=3.5.3',
     install_requires=[
         'pytest>=3.5.0',
         'pytest-aiohttp',
