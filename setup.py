@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name='pytest-aioworkers',
-    version='0.2.0',
+    version='0.3.0',
     author='Alexander Malev',
     author_email='malev@somedev.ru',
     maintainer='Alexander Malev',
