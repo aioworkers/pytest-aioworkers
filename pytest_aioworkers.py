@@ -69,8 +69,7 @@ def config(aioworkers, config_yaml):
 
 @pytest.fixture
 def context(loop, groups, config):
-    from aioworkers.core.context import Context
-    from aioworkers.core.context import GroupResolver
+    from aioworkers.core.context import Context, GroupResolver
 
     gr = GroupResolver(
         include=groups.include,
