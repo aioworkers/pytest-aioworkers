@@ -14,10 +14,6 @@ pytest-aioworkers
     :target: https://travis-ci.org/aioworkers/pytest-aioworkers
     :alt: See Build Status on Travis CI
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/aioworkers/pytest-aioworkers?branch=master
-    :target: https://ci.appveyor.com/project/aioworkers/pytest-aioworkers/branch/master
-    :alt: See Build Status on AppVeyor
-
 A plugin to test aioworkers projects with pytest
 
 
