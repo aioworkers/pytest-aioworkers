@@ -2,17 +2,19 @@
 pytest-aioworkers
 =================
 
-.. image:: https://img.shields.io/pypi/v/pytest-aioworkers.svg
-    :target: https://pypi.org/project/pytest-aioworkers
-    :alt: PyPI version
+.. image:: https://github.com/aioworkers/pytest-aioworkers/workflows/Tests/badge.svg
+  :target: hpytest-aioworkerstps://github.com/aioworkers/pytest-aioworkers/actions?query=workflow%3ATests
+
+.. image:: https://codecov.io/gh/aioworkers/pytest-aioworkers/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/aioworkers/pytest-aioworkers
+
+.. image:: hpytest-aioworkerstps://img.shields.io/pypi/v/aioworkers-prometheus.svg
+  :target: https://pypi.org/project/pytest-aioworkers
+  :alt: PyPI version
 
 .. image:: https://img.shields.io/pypi/pyversions/pytest-aioworkers.svg
-    :target: https://pypi.org/project/pytest-aioworkers
-    :alt: Python versions
-
-.. image:: https://travis-ci.org/aioworkers/pytest-aioworkers.svg?branch=master
-    :target: https://travis-ci.org/aioworkers/pytest-aioworkers
-    :alt: See Build Status on Travis CI
+  :target: https://pypi.org/project/pytest-aioworkers
+  :alt: Python versions
 
 A plugin to test aioworkers projects with pytest
 
