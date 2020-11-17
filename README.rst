@@ -8,7 +8,7 @@ pytest-aioworkers
 .. image:: https://codecov.io/gh/aioworkers/pytest-aioworkers/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/aioworkers/pytest-aioworkers
 
-.. image:: hpytest-aioworkerstps://img.shields.io/pypi/v/aioworkers-prometheus.svg
+.. image:: https://img.shields.io/pypi/v/pytest-aioworkers.svg
   :target: https://pypi.org/project/pytest-aioworkers
   :alt: PyPI version
 
