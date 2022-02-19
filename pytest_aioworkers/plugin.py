@@ -1,56 +1,24 @@
-from collections import namedtuple
-from typing import Dict, Iterable
 from unittest import mock
 
 import pytest
 
-
-try:
-    import yaml
-except ImportError:
-    _yaml_loader = None
-else:
-    _yaml_loader = getattr(yaml, 'CLoader', yaml.Loader)
-
-
-def _yaml_import_error(s: str) -> Iterable[Dict]:
-    import yaml  # noqa
-    return yaml_load_all(s)
-
-
-def _yaml_load_all(s: str) -> Iterable[Dict]:
-    yield from yaml.load_all(s, Loader=_yaml_loader)
-
-
-if _yaml_loader is None:
-    yaml_load_all = _yaml_import_error
-else:
-    yaml_load_all = _yaml_load_all
-
-
-AioWorkers = namedtuple('AioWorkers', 'plugins groups')
-Groups = namedtuple('Groups', 'include exclude')
-
-
-class Plugins(list):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.default = False
+from . import AioWorkers, Groups, Plugins
+from .utils import yaml_load_all
 
 
 @pytest.fixture
-def groups():
+def groups() -> Groups:
     return Groups(set(), set())
 
 
 @pytest.fixture
-def aioworkers(groups):
+def aioworkers(groups) -> AioWorkers:
     return AioWorkers(Plugins(), groups)
 
 
 @pytest.fixture
-def config_yaml():
-    return ''
+def config_yaml() -> str:
+    return ""
 
 
 @pytest.fixture
@@ -86,5 +54,7 @@ def make_coro():
             if exception is not None:
                 raise exception
             return result
+
         return mock.Mock(wraps=coro)
+
     return make_coro
