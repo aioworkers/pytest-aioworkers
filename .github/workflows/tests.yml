@@ -25,13 +25,13 @@ jobs:
         pipenv install -d --skip-lock --system
     - name: flake8
       run: |
-        flake8 pytest_aioworkers.py tests
+        flake8 pytest_aioworkers tests
     - name: mypy
       run: |
-        mypy pytest_aioworkers.py tests
+        mypy pytest_aioworkers tests
     - name: Test with pytest
       run: |
-        pytest --isort --cov=pytest_aioworkers
+        pytest --cov=pytest_aioworkers
 
   tests-on-pypy:
 
