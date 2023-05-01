@@ -42,7 +42,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools
-        pip install -U hatch codecov
+        python -m pip install hatch codecov
     - name: ruff
       if: ${{ matrix.lint }}
       run: |
