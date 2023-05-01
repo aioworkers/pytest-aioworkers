@@ -27,7 +27,7 @@ A plugin to test aioworkers projects with pytest
 Features
 --------
 
-* fixtures
+* fixtures: aioworkers, context, config_yaml
 
 
 Requirements
@@ -42,7 +42,7 @@ Installation
 
 You can install "pytest-aioworkers" via `pip`_ from `PyPI`_::
 
-    $ pip install pytest-aioworkers
+    $ pip install pytest-aioworkers[asyncio]
 
 
 Contributing

@@ -45,6 +45,8 @@ aioworkers = "pytest_aioworkers.plugin"
 [project.urls]
 GitHub = "https://github.com/aioworkers/pytest-aioworkers"
 Homepage = "https://github.com/aioworkers/pytest-aioworkers"
+Documentation = "https://github.com/aioworkers/pytest-aioworkers/blob/master/README.rst"
+Issues = "https://github.com/aioworkers/pytest-aioworkers/issues"
 
 [tool.hatch.version]
 path = "pytest_aioworkers/__init__.py"
