@@ -16,6 +16,7 @@ def _yaml_import_error(s: str) -> Iterable[Dict]:
 
 
 def _yaml_load_all(s: str) -> Iterable[Dict]:
+    assert _yaml_loader
     yield from yaml.load_all(s, Loader=_yaml_loader)
 
 
