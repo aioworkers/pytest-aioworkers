@@ -1,6 +1,5 @@
 from typing import Dict, Iterable
 
-
 try:
     import yaml
 except ImportError:
@@ -9,7 +8,7 @@ else:
     _yaml_loader = getattr(yaml, "CLoader", yaml.Loader)
 
 
-def _yaml_import_error(s: str) -> Iterable[Dict]:
+def _yaml_import_error(s: str) -> Iterable[Dict]:  # no cov
     import yaml  # noqa
 
     return yaml_load_all(s)
