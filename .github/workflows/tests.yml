@@ -10,50 +10,28 @@ on:
       - 'master'
 
 jobs:
-  tests-on-ubuntu:
-
-    runs-on: ubuntu-latest
+  tests:
     strategy:
-      max-parallel: 4
+      max-parallel: 6
       matrix:
+        os:
+          - ubuntu-latest
         python-version:
-          - '3.7'
           - '3.8'
           - '3.9'
           - '3.10'
-
-    steps:
-    - uses: actions/checkout@v3.5.2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4.6.0
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        pip install -U pip setuptools
-        pip install -U pipenv codecov
-        pip install -e .
-        pipenv install -d --skip-lock --system
-    - name: flake8
-      run: |
-        flake8 pytest_aioworkers tests
-    - name: mypy
-      run: |
-        mypy pytest_aioworkers tests
-    - name: Test with pytest
-      run: |
-        pytest --cov=pytest_aioworkers
-
-  tests-on-pypy:
-
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        python-version:
           - pypy-3.7
           - pypy-3.8
           - pypy-3.9
+        include:
+          - os: ubuntu-latest
+            python-version: '3.7'
+          - os: macOS-latest
+            python-version: '3.7'
+          - os: windows-latest
+            python-version: '3.7'
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3.5.2
@@ -63,59 +41,19 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        pip install -U pip setuptools
-        pip install -U pipenv codecov pyyaml
-        pip install -e .
-        pipenv install --skip-lock --system
-    - name: Test with pytest
+        python -m pip install --upgrade pip setuptools
+        pip install -U hatch codecov
+    - name: ruff
+      if: ${{ matrix.lint }}
       run: |
-        pytest
-
-  tests-on-macos:
-
-    runs-on: macOS-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.6]
-
-    steps:
-    - uses: actions/checkout@v3.5.2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4.6.0
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        hatch run style:ruff check pytest_aioworkers tests
+    - name: mypy
+      if: ${{ matrix.lint }}
       run: |
-        pip install -U pip setuptools
-        pip install -U pipenv codecov
-        pip install -e .
-        pipenv install -d --skip-lock --system
-    - name: Test with pytest
+        hatch run style:mypy pytest_aioworkers tests
+    - name: Test with pytest & coverage
       run: |
-        pytest
-
-  tests-on-windows:
-
-    runs-on: windows-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.6]
-
-    steps:
-      - uses: actions/checkout@v3.5.2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4.6.0
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          pip install -U pip setuptools
-          pip install -U pipenv codecov
-          pip install -e .
-          pipenv install --skip-lock --system
-      - name: Test with pytest
-        run: |
-          pytest
-        continue-on-error: true
+        hatch run cov
+    - name: Additional coverage
+      run: |
+        hatch run cov:cov
