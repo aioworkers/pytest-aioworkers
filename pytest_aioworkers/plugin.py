@@ -36,14 +36,14 @@ def config(aioworkers, config_yaml):
 
 
 @pytest.fixture
-def context(loop, groups, config):
+def context(event_loop, groups, config):
     from aioworkers.core.context import Context, GroupResolver
 
     gr = GroupResolver(
         include=groups.include,
         exclude=groups.exclude,
     )
-    with Context(config, group_resolver=gr, loop=loop) as ctx:
+    with Context(config, group_resolver=gr, loop=event_loop) as ctx:
         yield ctx
 
 
