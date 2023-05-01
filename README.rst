@@ -3,7 +3,7 @@ pytest-aioworkers
 =================
 
 .. image:: https://github.com/aioworkers/pytest-aioworkers/workflows/Tests/badge.svg
-  :target: hpytest-aioworkerstps://github.com/aioworkers/pytest-aioworkers/actions?query=workflow%3ATests
+  :target: https://github.com/aioworkers/pytest-aioworkers/actions?query=workflow%3ATests
 
 .. image:: https://codecov.io/gh/aioworkers/pytest-aioworkers/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/aioworkers/pytest-aioworkers
