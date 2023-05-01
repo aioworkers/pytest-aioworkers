@@ -16,6 +16,10 @@ pytest-aioworkers
   :target: https://pypi.org/project/pytest-aioworkers
   :alt: Python versions
 
+.. image:: https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg
+   :alt: Hatch project
+   :target: https://github.com/pypa/hatch
+
 A plugin to test aioworkers projects with pytest
 
 
