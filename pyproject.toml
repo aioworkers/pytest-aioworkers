@@ -1,0 +1,134 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pytest-aioworkers"
+dynamic = ["version"]
+description = "A plugin to test aioworkers project with pytest"
+readme = "README.rst"
+license = "Apache-2.0"
+requires-python = ">=3.7"
+authors = [
+    { name = "Alexander Malev", email = "malev@somedev.ru" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: AsyncIO",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+dependencies = [
+    "aioworkers",
+    "pytest >= 6.1.0",
+]
+
+[project.optional-dependencies]
+aiohttp = [
+    "pytest-aiohttp",
+]
+asyncio = [
+    "pytest-asyncio",
+]
+
+[project.entry-points.pytest11]
+aioworkers = "pytest_aioworkers.plugin"
+
+[project.urls]
+GitHub = "https://github.com/aioworkers/pytest-aioworkers"
+Homepage = "https://github.com/aioworkers/pytest-aioworkers"
+
+[tool.hatch.version]
+path = "pytest_aioworkers/__init__.py"
+
+[tool.hatch.build]
+include = [
+    "/pytest_aioworkers",
+]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "coverage[toml]",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-timeout",
+    "pytest-mock",
+    "pyyaml",
+]
+[tool.hatch.envs.default.scripts]
+cov = "coverage run -m pytest"
+no-cov = "cov --no-cov"
+
+[tool.hatch.envs.cov]
+dependencies = [
+    "coverage[toml]",
+]
+[tool.hatch.envs.cov.scripts]
+cov = "coverage run --append -m pytest_aioworkers.utils"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests", "pytest_aioworkers"]
+addopts = ["-s", "--doctest-modules"]
+
+[tool.coverage.run]
+branch = false
+parallel = false
+omit = [
+    "pytest_aioworkers/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "no cov",
+    "if TYPE_CHECKING:",
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py37", "py38", "py39", "py310"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.mypy]
+follow_imports = "silent"
+strict_optional = true
+warn_redundant_casts = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 120
+
+[tool.hatch.envs.style]
+detached = true
+dependencies = [
+    "ruff",
+    "black",
+    "isort",
+    "mypy",
+    "types-PyYAML",
+    "types-setuptools",
+]
+[tool.hatch.envs.style.scripts]
+check = [
+    "ruff check pytest_aioworkers tests",
+    "isort --check-only --diff pytest_aioworkers tests",
+    "black --check --diff pytest_aioworkers tests",
+    "mypy pytest_aioworkers tests",
+]
+fmt = [
+    "isort pytest_aioworkers tests",
+    "black pytest_aioworkers tests",
+    "ruff check --fix pytest_aioworkers tests",
+    "check",
+]
