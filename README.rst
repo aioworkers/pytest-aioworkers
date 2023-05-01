@@ -47,8 +47,16 @@ You can install "pytest-aioworkers" via `pip`_ from `PyPI`_::
 
 Contributing
 ------------
-Contributions are very welcome. Tests can be run with `tox`_, please ensure
+Contributions are very welcome. Tests can be run with `hatch`_, please ensure
 the coverage at least stays the same before you submit a pull request.
+
+To run tests::
+
+    hatch run pytest
+
+or::
+
+    hatch run cov
 
 License
 -------
@@ -64,6 +72,6 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 .. _`Apache Software License 2.0`: http://www.apache.org/licenses/LICENSE-2.0
 .. _`file an issue`: https://github.com/aioworkers/pytest-aioworkers/issues
 .. _`pytest`: https://github.com/pytest-dev/pytest
-.. _`tox`: https://tox.readthedocs.io/en/latest/
+.. _`hatch`: https://hatch.pypa.io/latest/environment/#scripts
 .. _`pip`: https://pypi.org/project/pip/
 .. _`PyPI`: https://pypi.org/project
