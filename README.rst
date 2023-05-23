@@ -2,23 +2,34 @@
 pytest-aioworkers
 =================
 
+.. image:: https://img.shields.io/pypi/v/pytest-aioworkers.svg
+  :target: https://pypi.org/project/pytest-aioworkers
+
 .. image:: https://github.com/aioworkers/pytest-aioworkers/workflows/Tests/badge.svg
   :target: https://github.com/aioworkers/pytest-aioworkers/actions?query=workflow%3ATests
 
 .. image:: https://codecov.io/gh/aioworkers/pytest-aioworkers/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/aioworkers/pytest-aioworkers
 
-.. image:: https://img.shields.io/pypi/v/pytest-aioworkers.svg
-  :target: https://pypi.org/project/pytest-aioworkers
-  :alt: PyPI version
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v0.json
+  :target: https://github.com/charliermarsh/ruff
+
+.. image:: https://img.shields.io/badge/types-Mypy-blue.svg
+  :target: https://github.com/python/mypy
+
+.. image:: https://readthedocs.org/projects/pytest-aioworkers/badge/?version=latest
+  :target: https://pytest-aioworkers.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
 
 .. image:: https://img.shields.io/pypi/pyversions/pytest-aioworkers.svg
   :target: https://pypi.org/project/pytest-aioworkers
-  :alt: Python versions
+
+.. image:: https://img.shields.io/pypi/dm/pytest-aioworkers.svg
+  :target: https://pypi.org/project/pytest-aioworkers
 
 .. image:: https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg
-   :alt: Hatch project
-   :target: https://github.com/pypa/hatch
+  :alt: Hatch project
+  :target: https://github.com/pypa/hatch
 
 A plugin to test aioworkers projects with pytest
 
@@ -50,11 +61,30 @@ Contributing
 Contributions are very welcome. Tests can be run with `hatch`_, please ensure
 the coverage at least stays the same before you submit a pull request.
 
-To run tests::
+Check code:
+
+.. code-block:: shell
+
+    hatch run lint:all
+
+
+Format code:
+
+.. code-block:: shell
+
+    hatch run lint:fmt
+
+
+Run tests:
+
+.. code-block:: shell
 
     hatch run pytest
 
-or::
+
+Run tests with coverage:
+
+.. code-block:: shell
 
     hatch run cov
 
