@@ -12,17 +12,25 @@ requires-python = ">=3.7"
 authors = [
     { name = "Alexander Malev", email = "malev@somedev.ru" },
 ]
+keywords = [
+    "aioworkers",
+    "pytest",
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: AsyncIO",
     "Framework :: Pytest",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development :: Testing",
     "Typing :: Typed",
 ]
@@ -30,13 +38,28 @@ dependencies = [
     "aioworkers",
     "pytest >= 6.1.0",
 ]
-
 [project.optional-dependencies]
+asyncio = [
+    "pytest-asyncio",
+]
 aiohttp = [
     "pytest-aiohttp",
 ]
-asyncio = [
-    "pytest-asyncio",
+dev-test = [
+    "aioworkers==0.21.1",
+    "coverage[toml]==7.2.5",
+    "pytest==7.3.1",
+    "pytest-asyncio==0.21.0",
+    "pytest-timeout==2.1.0",
+    "pytest-mock==3.10.0",
+    "pyyaml==6.0",
+]
+dev-lint = [
+    "ruff==0.0.269",
+    "isort==5.12.0",
+    "black==23.3.0",
+    "mypy==1.3.0",
+    "types-PyYAML==6.0.12.10",
 ]
 
 [project.entry-points.pytest11]
@@ -45,8 +68,9 @@ aioworkers = "pytest_aioworkers.plugin"
 [project.urls]
 GitHub = "https://github.com/aioworkers/pytest-aioworkers"
 Homepage = "https://github.com/aioworkers/pytest-aioworkers"
-Documentation = "https://github.com/aioworkers/pytest-aioworkers/blob/master/README.rst"
+Documentation = "https://github.com/aioworkers/pytest-aioworkers#readme"
 Issues = "https://github.com/aioworkers/pytest-aioworkers/issues"
+Source = "https://github.com/aioworkers/pytest-aioworkers"
 
 [tool.hatch.version]
 path = "pytest_aioworkers/__init__.py"
@@ -57,35 +81,45 @@ include = [
 ]
 
 [tool.hatch.envs.default]
-dependencies = [
-    "coverage[toml]",
-    "pytest",
-    "pytest-asyncio",
-    "pytest-timeout",
-    "pytest-mock",
-    "pyyaml",
+features = [
+    "dev-test",
 ]
 [tool.hatch.envs.default.scripts]
-cov = "coverage run -m pytest"
-no-cov = "cov --no-cov"
+cov = "coverage run -m pytest && coverage report"
 
 [tool.hatch.envs.cov]
+detached = true
 dependencies = [
     "coverage[toml]",
 ]
 [tool.hatch.envs.cov.scripts]
 cov = "coverage run --append -m pytest_aioworkers.utils"
 
+[[tool.hatch.envs.all.matrix]]
+python = [
+    "3.7",
+    "3.8",
+    "3.9",
+    "3.10",
+    "3.11",
+]
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["tests", "pytest_aioworkers"]
-addopts = ["-s", "--doctest-modules"]
+testpaths = [
+    "pytest_aioworkers",
+    "tests",
+]
+addopts = [
+    "--doctest-modules",
+]
 
 [tool.coverage.run]
-branch = false
+branch = true
 parallel = false
-omit = [
-    "pytest_aioworkers/__init__.py",
+source = [
+    "pytest_aioworkers",
+    "tests",
 ]
 
 [tool.coverage.report]
@@ -96,7 +130,13 @@ exclude_lines = [
 
 [tool.black]
 line-length = 120
-target-version = ["py37", "py38", "py39", "py310", "py311"]
+target-version = [
+    "py37",
+    "py38",
+    "py39",
+    "py310",
+    "py311",
+]
 
 [tool.isort]
 profile = "black"
@@ -108,30 +148,42 @@ follow_imports = "silent"
 strict_optional = true
 warn_redundant_casts = true
 ignore_missing_imports = true
+check_untyped_defs = true
 
 [tool.ruff]
 line-length = 120
 
-[tool.hatch.envs.style]
-detached = true
-dependencies = [
-    "ruff",
-    "black",
-    "isort",
-    "mypy",
-    "types-PyYAML",
-    "types-setuptools",
+[tool.hatch.envs.lint]
+features = [
+    "dev-lint",
 ]
-[tool.hatch.envs.style.scripts]
-check = [
-    "ruff check pytest_aioworkers tests",
-    "isort --check-only --diff pytest_aioworkers tests",
-    "black --check --diff pytest_aioworkers tests",
-    "mypy pytest_aioworkers tests",
+[tool.hatch.envs.lint.scripts]
+typing = "mypy --install-types --non-interactive {args:pytest_aioworkers tests}"
+style = [
+    "ruff {args:pytest_aioworkers tests}",
+    "isort --check-only --diff {args:pytest_aioworkers tests}",
+    "black --check --diff {args:pytest_aioworkers tests}",
 ]
 fmt = [
-    "isort pytest_aioworkers tests",
-    "black pytest_aioworkers tests",
-    "ruff check --fix pytest_aioworkers tests",
-    "check",
+    "ruff --fix {args:pytest_aioworkers tests}",
+    "isort {args:pytest_aioworkers tests}",
+    "black {args:pytest_aioworkers tests}",
+    "style",
+]
+all = [
+    "style",
+    "typing",
+]
+
+[tool.hatch.envs.template]
+detached = true
+dependencies = [
+    "scaraplate",
+]
+[tool.hatch.envs.template.scripts]
+update = [
+    "scaraplate rollup --no-input {args:../cookiecutter-aioworkers-plugin} ."
+]
+clone = [
+    "git clone https://github.com/aioworkers/cookiecutter-aioworkers-plugin {args:../cookiecutter-aioworkers-plugin}"
 ]
