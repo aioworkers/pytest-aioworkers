@@ -154,6 +154,7 @@ check_untyped_defs = true
 line-length = 120
 
 [tool.hatch.envs.lint]
+python = "3.8"
 features = [
     "dev-lint",
 ]
