@@ -1,4 +1,3 @@
-=================
 pytest-aioworkers
 =================
 
@@ -8,17 +7,9 @@ pytest-aioworkers
 .. image:: https://github.com/aioworkers/pytest-aioworkers/workflows/Tests/badge.svg
   :target: https://github.com/aioworkers/pytest-aioworkers/actions?query=workflow%3ATests
 
-.. image:: https://codecov.io/gh/aioworkers/pytest-aioworkers/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/aioworkers/pytest-aioworkers
-  :alt: Coverage
-
 .. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v0.json
   :target: https://github.com/charliermarsh/ruff
   :alt: Code style: ruff
-
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-  :target: https://github.com/psf/black
-  :alt: Code style: black
 
 .. image:: https://img.shields.io/badge/types-Mypy-blue.svg
   :target: https://github.com/python/mypy
@@ -33,7 +24,7 @@ pytest-aioworkers
   :alt: Python versions
 
 .. image:: https://img.shields.io/pypi/dm/pytest-aioworkers.svg
-  :target: https://pypi.org/project/pytest-aioworkers
+  :target: https://pypistats.org/packages/pytest-aioworkers
 
 .. image:: https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg
   :alt: Hatch project
