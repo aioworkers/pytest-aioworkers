@@ -37,8 +37,6 @@ classifiers = [
 dependencies = [
     "aioworkers>=0.22",
     "pytest>=8.3.4",
-    "pytest-asyncio>=0.25.0",
-    "pytest-timeout>=2.3.1",
 ]
 [project.optional-dependencies]
 asyncio = [
