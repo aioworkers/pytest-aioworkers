@@ -1,3 +1,4 @@
+import asyncio
 from unittest import mock
 
 import pytest
@@ -36,14 +37,18 @@ def config(aioworkers, config_yaml):
 
 
 @pytest.fixture
-def context(event_loop, groups, config):
+async def context(aioworkers, config):
     from aioworkers.core.context import Context, GroupResolver
 
     gr = GroupResolver(
-        include=groups.include,
-        exclude=groups.exclude,
+        include=aioworkers.groups.include,
+        exclude=aioworkers.groups.exclude,
     )
-    with Context(config, group_resolver=gr, loop=event_loop) as ctx:
+    async with Context(
+        config,
+        group_resolver=gr,
+        loop=asyncio.get_running_loop(),
+    ) as ctx:
         yield ctx
 
 
