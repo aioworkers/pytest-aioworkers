@@ -46,11 +46,11 @@ jobs:
       - name: ruff
         if: ${{ matrix.lint }}
         run: |
-          hatch run lint:style pytest_aioworkers tests
+          hatch run lint:style
       - name: mypy
         if: ${{ matrix.lint }}
         run: |
-          hatch run lint:mypy pytest_aioworkers tests
+          hatch run lint:typing
       - name: Tests with coverage
         run: |
           hatch run cov
