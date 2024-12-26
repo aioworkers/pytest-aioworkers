@@ -16,7 +16,7 @@ pytest-aioworkers
   :alt: Code style: Mypy
 
 .. image:: https://readthedocs.org/projects/pytest-aioworkers/badge/?version=latest
-  :target: https://pytest-aioworkers.readthedocs.io/en/latest/?badge=latest
+  :target: https://github.com/aioworkers/pytest-aioworkers#readme
   :alt: Documentation Status
 
 .. image:: https://img.shields.io/pypi/pyversions/pytest-aioworkers.svg

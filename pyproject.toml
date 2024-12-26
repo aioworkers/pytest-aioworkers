@@ -67,7 +67,7 @@ aioworkers = "pytest_aioworkers.plugin"
 [project.urls]
 GitHub = "https://github.com/aioworkers/pytest-aioworkers"
 Homepage = "https://github.com/aioworkers/pytest-aioworkers"
-Documentation = "https://pytest-aioworkers.readthedocs.io/en/latest/?badge=latest"
+Documentation = "https://github.com/aioworkers/pytest-aioworkers#readme"
 Issues = "https://github.com/aioworkers/pytest-aioworkers/issues"
 Source = "https://github.com/aioworkers/pytest-aioworkers"
 
