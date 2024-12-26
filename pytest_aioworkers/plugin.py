@@ -48,7 +48,6 @@ async def context(aioworkers, config):
         config,
         group_resolver=gr,
         loop=asyncio.get_running_loop(),
-        sent_start=False,
     ) as ctx:
         yield ctx
 
