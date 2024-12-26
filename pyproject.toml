@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "A plugin to test aioworkers project with pytest"
 readme = "README.rst"
 license = "Apache-2.0"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 authors = [
     { name = "Alexander Malev", email = "malev@somedev.ru" },
 ]
@@ -24,19 +24,21 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development :: Testing",
     "Typing :: Typed",
 ]
 dependencies = [
-    "aioworkers",
-    "pytest >= 6.1.0",
+    "aioworkers>=0.22",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.0",
+    "pytest-timeout>=2.3.1",
 ]
 [project.optional-dependencies]
 asyncio = [
@@ -46,20 +48,17 @@ aiohttp = [
     "pytest-aiohttp",
 ]
 dev-test = [
-    "aioworkers==0.27.0",
-    "coverage[toml]==7.2.7",
-    "pytest==7.4.3",
-    "pytest-asyncio==0.21.1",
-    "pytest-timeout==2.2.0",
-    "pytest-mock==3.11.1",
-    "pyyaml==6.0.1",
+    "aioworkers==0.28.0",
+    "coverage[toml]==7.6.1",
+    "pytest==8.3.4",
+    "pytest-asyncio==0.25.0",
+    "pytest-timeout==2.3.1",
+    "pytest-mock==3.14.0",
+    "pyyaml==6.0.2",
 ]
 dev-lint = [
-    "ruff==0.3.2",
-    "isort==5.13.2",
-    "black==23.12.0",
-    "mypy==1.9.0",
-    "types-PyYAML==6.0.12.12",
+    "ruff==0.8.4",
+    "mypy==1.14.0",
 ]
 
 [project.entry-points.pytest11]
@@ -68,7 +67,7 @@ aioworkers = "pytest_aioworkers.plugin"
 [project.urls]
 GitHub = "https://github.com/aioworkers/pytest-aioworkers"
 Homepage = "https://github.com/aioworkers/pytest-aioworkers"
-Documentation = "https://github.com/aioworkers/pytest-aioworkers#readme"
+Documentation = "https://pytest-aioworkers.readthedocs.io/en/latest/?badge=latest"
 Issues = "https://github.com/aioworkers/pytest-aioworkers/issues"
 Source = "https://github.com/aioworkers/pytest-aioworkers"
 
@@ -100,15 +99,16 @@ cov = "coverage run --append -m pytest_aioworkers.utils"
 
 [[tool.hatch.envs.all.matrix]]
 python = [
-    "3.7",
-    "3.8",
     "3.9",
     "3.10",
     "3.11",
+    "3.12",
+    "3.13",
 ]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 testpaths = [
     "pytest_aioworkers",
     "tests",
@@ -131,47 +131,62 @@ exclude_lines = [
     "if TYPE_CHECKING:",
 ]
 
-[tool.black]
+[tool.ruff]
 line-length = 120
-target-version = [
-    "py37",
-    "py38",
-    "py39",
-    "py310",
-    "py311",
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+extend-select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  # "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  # "SIM",
+  # isort
+  "I",
+]
+extend-ignore = [
+    "E501",
 ]
 
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-include_trailing_comma = true
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
 
 [tool.mypy]
 follow_imports = "silent"
 strict_optional = true
 warn_redundant_casts = true
-ignore_missing_imports = true
 check_untyped_defs = true
 
-[tool.ruff]
-line-length = 120
+[[tool.mypy.overrides]]
+module = [
+    "pytest",
+]
+ignore_missing_imports = true
 
 [tool.hatch.envs.lint]
-python = "3.8"
+python = "3.9"
 features = [
     "dev-lint",
 ]
 [tool.hatch.envs.lint.scripts]
 typing = "mypy --install-types --non-interactive {args:pytest_aioworkers tests}"
 style = [
-    "ruff {args:pytest_aioworkers tests}",
-    "isort --check-only --diff {args:pytest_aioworkers tests}",
-    "black --check --diff {args:pytest_aioworkers tests}",
+    "ruff check {args:pytest_aioworkers tests}",
+    "ruff format --check --diff {args:pytest_aioworkers tests}",
 ]
 fmt = [
-    "ruff --fix {args:pytest_aioworkers tests}",
-    "isort {args:pytest_aioworkers tests}",
-    "black {args:pytest_aioworkers tests}",
+    "ruff check --fix {args:pytest_aioworkers tests}",
+    "ruff format {args:pytest_aioworkers tests}",
     "style",
 ]
 all = [
